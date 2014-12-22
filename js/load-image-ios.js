@@ -15,23 +15,13 @@
 /*jslint nomen: true, bitwise: true */
 /*global define, window, document */
 
-(function (factory) {
-    'use strict';
-    if (typeof define === 'function' && define.amd) {
-        // Register as an anonymous AMD module:
-        define(['load-image'], factory);
-    } else {
-        // Browser globals:
-        factory(window.loadImage);
-    }
-}(function (loadImage) {
-    'use strict';
+var loadImage = require('./load-image');
 
-    // Only apply fixes on the iOS platform:
-    if (!window.navigator || !window.navigator.platform ||
-             !(/iP(hone|od|ad)/).test(window.navigator.platform)) {
-        return;
-    }
+'use strict';
+
+// Only apply fixes on the iOS platform:
+if (window.navigator && window.navigator.platform &&
+         (/iP(hone|od|ad)/).test(window.navigator.platform)) {
 
     var originalRenderMethod = loadImage.renderImageToCanvas;
 
@@ -177,5 +167,6 @@
             destHeight
         );
     };
+}
 
-}));
+module.exports = loadImage;
